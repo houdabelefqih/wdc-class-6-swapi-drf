@@ -13,6 +13,13 @@ from api.serializers import PeopleSerializer, PeopleModelSerializer
 
 
 class PeopleListApiView(APIView):
+    """
+    People listing actions. Must support the following method:
+
+        * GET: returns the whole list of People objects.
+
+        * POST: creates a new People object using submitted payload.
+    """
 
     def get(self, request):
         qs = People.objects.select_related('homeworld').all()
@@ -34,6 +41,16 @@ class PeopleListApiView(APIView):
 
 
 class PeopleDetailApiView(APIView):
+    """
+    People detail actions. Must support the following method:
+
+        * GET: retrieves information about one particular People object.
+
+        * PUT/PATCH: updates (either fully or partially) a specific People
+                     object using submitted payload.
+
+        * DELETE: deletes one particular People object.
+    """
 
     def _get_object(self, people_id):
         return get_object_or_404(People, pk=people_id)
@@ -68,6 +85,16 @@ class PeopleDetailApiView(APIView):
 
 
 class PeopleViewSet(viewsets.ViewSet):
+    """
+    Implement all required REST actions.
+
+    Follow the default ViewSet method naming convention:
+    http://www.django-rest-framework.org/api-guide/viewsets/#viewset-actions
+
+    Use a ModelSerializer instead of a regular Serializer instance.
+
+    Make sure all api.tests still pass.
+    """
 
     def _get_object(self, people_id):
         return get_object_or_404(People, pk=people_id)
@@ -120,6 +147,12 @@ class PeopleViewSet(viewsets.ViewSet):
 
 
 class PeopleModelViewSet(viewsets.ModelViewSet):
+    """
+    Migrate the same logic as above, but using ModelViewSets
+    and ModelSerializers.
+
+    Make sure all api.tests still pass.
+    """
 
     serializer_class = PeopleModelSerializer
     queryset = People.objects.all()
