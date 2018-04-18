@@ -14,4 +14,6 @@ class PeopleSerializer(serializers.Serializer):
 
 
 class PeopleModelSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = People
+        fields = ('name', 'homeworld', 'height', 'mass', 'hair_color', 'created')
