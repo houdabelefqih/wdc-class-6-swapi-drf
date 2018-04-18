@@ -39,11 +39,11 @@ If you need to disable it, or you prefer to see the response in plain JSON forma
 ## 4) Implementing SWAPI with DRF
 
 We will implement SWAPI in three different ways:
-* 1) using DRF's APIView classes. Splitting "detail" actions from "listing" actions into two different classes.
+1. using DRF's APIView classes. Splitting "detail" actions from "listing" actions into two different classes.
 
-* 2) using DRF's ViewSet class. We will implement each action-related methods (ie: create, retrieve, delete, etc).
+2. using DRF's ViewSet class. We will implement each action-related methods (ie: create, retrieve, delete, etc).
 
-* 3) let DRF do the magic do us, and get all the logic implemented by using ModelViewSet class.
+3. let DRF do the magic do us, and get all the logic implemented by using ModelViewSet class.
 
 At the end, `django-rest-framework` will do most of the work for us. Unless you have a very complicated use case or data model (this is not the case), you won't probably need to implement things manually. It just plugging the right parts together and let DRF do the magic.
 
