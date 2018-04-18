@@ -16,8 +16,8 @@ router = DefaultRouter()
 
 urlpatterns = [
     # first step: working with raw APIViews
-    # path('people/<int:people_id>/', views.PeopleDetailApiView.as_view()),
-    # path('people', views.PeopleListApiView.as_view()),
+    path('people/<int:people_id>/', views.PeopleDetailApiView.as_view()),
+    path('people/', views.PeopleListApiView.as_view()),
 ]
 
 urlpatterns += router.urls

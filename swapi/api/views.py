@@ -20,7 +20,24 @@ class PeopleListApiView(APIView):
 
         * POST: creates a new People object using submitted payload.
     """
-    pass
+
+    def get(self, request):
+        qs = People.objects.select_related('homeworld').all()
+        serializer = PeopleSerializer(qs, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = PeopleSerializer(data=request.data)
+        if serializer.is_valid():
+            People.objects.create(
+                name=serializer.validated_data['name'],
+                homeworld=serializer.validated_data['homeworld'],
+                height=serializer.validated_data['height'],
+                mass=serializer.validated_data['mass'],
+                hair_color=serializer.validated_data['hair_color'])
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
 
 
 class PeopleDetailApiView(APIView):
@@ -34,7 +51,37 @@ class PeopleDetailApiView(APIView):
 
         * DELETE: deletes one particular People object.
     """
-    pass
+
+    def _get_object(self, people_id):
+        return get_object_or_404(People, pk=people_id)
+
+    def get(self, request, people_id):
+        people = self._get_object(people_id)
+        serializer = PeopleSerializer(people)
+        return Response(serializer.data)
+
+    def _update(self, request, people_id, partial=False):
+        people = self._get_object(people_id)
+        serializer = PeopleSerializer(data=request.data, partial=partial)
+        if serializer.is_valid():
+            for field in serializer.fields:
+                if field in serializer.validated_data:
+                    setattr(people, field, serializer.validated_data[field])
+            people.save()
+            return Response(status=status.HTTP_200_OK)
+        return Response(serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, people_id):
+        return self._update(request, people_id, partial=False)
+
+    def patch(self, request, people_id):
+        return self._update(request, people_id, partial=True)
+
+    def delete(self, request, people_id):
+        people = self._get_object(people_id)
+        people.delete()
+        return Response(status=status.HTTP_200_OK)
 
 
 class PeopleViewSet(viewsets.ViewSet):
