@@ -153,4 +153,6 @@ class PeopleModelViewSet(viewsets.ModelViewSet):
 
     Make sure all api.tests still pass.
     """
-    pass
+
+    serializer_class = PeopleModelSerializer
+    queryset = People.objects.all()
