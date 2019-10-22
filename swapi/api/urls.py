@@ -8,11 +8,13 @@ from api import views
 
 router = DefaultRouter()
 
-# second step: working with Viewsets
-# router.register('people', views.PeopleViewSet, base_name='people')
+#second step: working with Viewsets
+#router.register('people', views.PeopleViewSet, base_name='people')
 
 # third step: working with ModelViewsets
 router.register('people', views.PeopleModelViewSet, base_name='people')
+router.register('planet', views.PlanetModelViewSet, base_name='people')
+
 
 urlpatterns = [
     # first step: working with raw APIViews

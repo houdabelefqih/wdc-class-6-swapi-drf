@@ -19,5 +19,5 @@ class People(models.Model):
     height = models.IntegerField(null=True, blank=True)
     mass = models.IntegerField(null=True, blank=True)
     hair_color = models.CharField(
-        max_length=10, choices=HAIR_COLOR_CHOICES, null=True, blank=True)
+        max_length=10, choices=HAIR_COLOR_CHOICES, null=True, blank=True, default='blond')
     created = models.DateTimeField(auto_now_add=True)

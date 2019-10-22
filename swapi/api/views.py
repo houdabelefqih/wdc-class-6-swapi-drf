@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from api.models import People, Planet
-from api.serializers import PeopleSerializer, PeopleModelSerializer
+from api.serializers import PeopleSerializer, PeopleModelSerializer, PlanetModelSerializer
 
 
 class PeopleListApiView(APIView):
@@ -123,3 +123,9 @@ class PeopleModelViewSet(viewsets.ModelViewSet):
 
     serializer_class = PeopleModelSerializer
     queryset = People.objects.all()
+
+
+class PlanetModelViewSet(viewsets.ModelViewSet):
+
+    serializer_class = PlanetModelSerializer
+    queryset = Planet.objects.all()

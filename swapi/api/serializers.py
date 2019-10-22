@@ -9,11 +9,17 @@ class PeopleSerializer(serializers.Serializer):
         queryset=Planet.objects.all())
     height = serializers.IntegerField()
     mass = serializers.IntegerField()
-    hair_color = serializers.ChoiceField(choices=People.HAIR_COLOR_CHOICES)
-    created = serializers.DateTimeField()
+    hair_color = serializers.ChoiceField(choices=People.HAIR_COLOR_CHOICES, required=False)
+    created = serializers.DateTimeField(required=False)
 
 
 class PeopleModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = People
         fields = ('name', 'homeworld', 'height', 'mass', 'hair_color', 'created')
+
+
+class PlanetModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Planet
+        fields = ('name', 'population', 'diameter')
